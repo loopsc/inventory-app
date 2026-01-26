@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+    <script>
+        document.addEventListener("click", async (e) => {
+            if (!e.target.classList.contains("delete-btn")) return;
+
+            if (!confirm("Delete this book?")) return;
+
+            const bookId = e.target.dataset.bookId;
+
+            const res = await fetch(`/books/${bookId}`, { method: "DELETE" });
+
+            if (res.ok) {
+                e.target.closest(".book-item").remove();
+            }
+        });
+
+    </script>
+</head>
+
+<body>
+    <main class="content">
+        <h1>
+            <%= title %>
+        </h1>
+        <%- include('./partials/navbar') %>
+
+            <p>Here are your books...</p>
+            <div class="book-item">
+                <p>My book title</p>
+                <button class="delete-btn" data-book-id="<%= book.id %>">Delete</button>
+            </div>
+    </main>
+</body>
+
+</html>
