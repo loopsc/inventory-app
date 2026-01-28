@@ -8,7 +8,7 @@
         document.addEventListener("click", async (e) => {
             if (!e.target.classList.contains("delete-btn")) return;
 
-            if (!confirm("Delete this book?")) return;
+            if (prompt("Enter the password to delete") !== "password") return;
 
             const bookId = e.target.dataset.bookId;
 
@@ -29,10 +29,30 @@
         </h1>
         <%- include('./partials/navbar') %>
 
-            <p>Here are your books...</p>
-            <div class="book-item">
-                <p>My book title</p>
-                <button class="delete-btn" data-book-id="<%= book.id %>">Delete</button>
+            <div class="books">
+                <% books.forEach(book=> { %>
+
+                    <div class="book-container">
+                        <div class="book-header">
+                            <p class="book-name">
+                                <%= book.title%>
+                            </p>
+                            <p class="book-author">
+                                <%= book.author %>
+                            </p>
+                        </div>
+                        <div class="book-details">
+                            <p> Is fiction: <%= book.is_fiction %>
+                            </p>
+                            <p> Is read: <%= book.is_read %>
+                            </p>
+                        </div>
+
+                    </div>
+
+
+
+                    <% }); %>
             </div>
     </main>
 </body>

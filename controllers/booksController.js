@@ -1,11 +1,12 @@
+const db = require("../db/queries");
+
 // Add queries for genre filtering?
 const getAllBooks = async (req, res, next) => {
+    const books = await db.fetchAllBooks();
     try {
         res.render("index", {
             title: "Home",
-            book: {
-                id: 0,
-            },
+            books,
         });
     } catch (err) {
         next(err);
@@ -77,7 +78,7 @@ const deleteBook = async (req, res, next) => {
         console.log("Validate and query db to delete book", req.params.bookId);
         res.sendStatus(204);
     } catch (error) {
-        next(err)
+        next(err);
     }
 };
 
