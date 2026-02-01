@@ -4,18 +4,14 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="/styles.css">
-    <!-- Form Multi Select -->
+    <link rel="stylesheet" href="/formStyle.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- Include jQuery and Select2 first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Then initialize Select2 in a separate script tag -->
     <script>
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2({
-                placeholder: "Select genres",
                 allowClear: true
             });
         });
@@ -26,20 +22,16 @@
 
 <body>
     <main class="content">
-        <h1 class="heading">
-            <%= title %>
-        </h1>
-
         <%- include('./partials/navbar') %>
 
             <form action="/new" method="POST" class="form">
                 <div class="inputGroup">
                     <label for="title">Title: </label>
-                    <input type="text" name="title" id="title" required>
+                    <input type="text" name="title" id="title" placeholder="Beyond Good and Evil" required>
                 </div>
                 <div class="inputGroup">
                     <label for="author">Author: </label>
-                    <input type="text" name="author" id="author" required>
+                    <input type="text" name="author" id="author" placeholder="Friedrich Nietzsche" required>
                 </div>
                 <div class="inputGroup">
                     <label for="genres">Generes: </label>
@@ -51,17 +43,26 @@
                 </div>
                 <fieldset>
                     <legend>Fiction or Non-fiction?</legend>
-                    <input type="radio" id="fiction" name="isFiction" value="fiction" required>
-                    <label for="fiction">Fiction</label><br />
-                    <input type="radio" id="non-fiction" name="isFiction" value="non-fiction">
-                    <label for="non-fiction">Non-fiction</label><br />
+
+                    <label for="fiction">
+                        <input type="radio" id="fiction" name="isFiction" value="fiction" required>
+                        Fiction
+                    </label>
+
+                    <label for="non-fiction">
+                        <input type="radio" id="non-fiction" name="isFiction" value="non-fiction">
+                        Non-fiction</label>
                 </fieldset>
                 <fieldset>
                     <legend>Have you read this book?</legend>
-                    <input type="radio" id="read" name="isRead" value="read" required>
-                    <label for="read">Read</label><br />
-                    <input type="radio" id="no-read" name="isRead" value="no-read">
-                    <label for="no-read">Not Read</label><br />
+                    <label for="read">
+                        <input type="radio" id="read" name="isRead" value="read" required>
+                        Read
+                    </label>
+                    <label for="no-read">
+                        <input type="radio" id="no-read" name="isRead" value="no-read">
+                        Not Read
+                    </label>
                 </fieldset>
                 <button type="submit">Add</button>
             </form>

@@ -1,8 +1,8 @@
 const pool = require("./pool");
 
-const fetchAllBooks = async (req, res) => {
+const fetchAllBooks = async () => {
     const { rows } = await pool.query(
-        `SELECT b.title, a.name AS author, STRING_AGG(g.name, ', ') AS genres, b.is_read, b.is_fiction
+        `SELECT b.id, b.title, a.name AS author, STRING_AGG(g.name, ', ') AS genres, b.is_read, b.is_fiction
             FROM books b
             JOIN authors a ON b.author_id = a.id
             JOIN book_genres bg ON b.id = bg.book_id
@@ -13,4 +13,8 @@ const fetchAllBooks = async (req, res) => {
     return rows;
 };
 
-module.exports = { fetchAllBooks };
+const deleteBook = async (bookId) => {
+    await pool.query("DELETE FROM books WHERE id = $1;", [bookId]);
+};
+
+module.exports = { fetchAllBooks, deleteBook };

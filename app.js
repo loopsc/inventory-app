@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 // For serving CSS
 const assetsPath = path.join(__dirname, "public");
 app.use(express.static(assetsPath));
+app.use(express.json());
 
 app.locals.links = [
     { href: "/", text: "Home" },

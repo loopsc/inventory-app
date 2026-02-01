@@ -4,27 +4,37 @@
     <title>
         <%= title %>
     </title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 
 <body>
     <main class="content">
-        <%- include('./partials/navbar') %>
-            <h1>
-                <%= title %>
-            </h1>
-            <h1>
-                <%= book.title %>
-            </h1>
-            <p>
-                <%= book.author %>
-            </p>
-            <ul>
-                <% book.genres.forEach(genre=> { %>
-                    <li>
-                        <%= genre %>
-                    </li>
-                    <% }); %>
-            </ul>
+        <%- include("navbar",{links:links}) %>
+
+            <div class="book-container">
+                <div class="book-header">
+                    <p class="book-name">
+                        <%= book.title%>
+                    </p>
+                    <p class="book-author">
+                        <%= book.author %>
+                    </p>
+                </div>
+                <div class="book-details">
+                    <p> Fiction: <%= book.is_fiction ? 'True' : 'False' %>
+                    </p>
+                    <p> Read: <%= book.is_read ? 'True' : 'False' %>
+                    </p>
+                </div>
+                <div class="btn-group">
+                    <a href="/update/<%= book.id %>" class="btn-edit">
+                        <button class="btn edit">Edit</button>
+                    </a>
+                    <button class="btn del">Delete</button>
+                </div>
+
+            </div>
+
     </main>
 </body>
 

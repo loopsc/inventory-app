@@ -41,6 +41,7 @@ const getNewBook = async (req, res, next) => {
 const postNewBook = async (req, res, next) => {
     try {
         console.log("Form data:", req.body);
+        res.redirect("/");
     } catch (err) {
         next(err);
     }
@@ -59,7 +60,7 @@ const getUpdateBook = async (req, res, next) => {
                 isRead: false,
             },
         });
-    } catch (error) {
+    } catch (err) {
         next(err);
     }
 };
@@ -68,16 +69,19 @@ const postUpdateBook = async (req, res, next) => {
     try {
         console.log("Update book with the following: ", req.body);
         res.redirect("/");
-    } catch (error) {
+    } catch (err) {
         next(err);
     }
 };
 
 const deleteBook = async (req, res, next) => {
     try {
-        console.log("Validate and query db to delete book", req.params.bookId);
+        if (req.body.password !== process.env.USER_PASSWORD) {
+            return res.sendStatus(403);
+        }
+        await db.deleteBook(req.body.book);
         res.sendStatus(204);
-    } catch (error) {
+    } catch (err) {
         next(err);
     }
 };

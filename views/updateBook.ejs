@@ -4,14 +4,11 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="/styles.css">
-    <!-- Form Multi Select -->
+    <link rel="stylesheet" href="/formStyle.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <!-- Include jQuery and Select2 first -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Then initialize Select2 in a separate script tag -->
     <script>
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2({
@@ -26,14 +23,11 @@
 
 <body>
     <main class="content">
-        <h1 class="heading">
-            <%= title %>
-        </h1>
 
         <%- include('./partials/navbar') %>
 
-            <h2>Updating: <%= title %>
-            </h2>
+            <h3>Updating: <%= title %>
+            </h3>
             <form action="/update/:bookId" method="POST" class="form">
                 <div class="inputGroup">
                     <label for="title">Title: </label>
@@ -58,25 +52,38 @@
                 </div>
                 <fieldset>
                     <legend>Fiction or Non-fiction?</legend>
-                    <input type="radio" id="fiction" name="isFiction" value="fiction" <%=book.isFiction ? 'checked' : ''
-                        %> required>
-                    <label for="fiction">Fiction</label><br />
 
-                    <input type="radio" id="non-fiction" name="isFiction" value="non-fiction" <%=!book.isFiction
-                        ? 'checked' : '' %>>
-                    <label for="non-fiction">Non-fiction</label><br />
+                    <label for="fiction">
+                        <input type="radio" id="fiction" name="isFiction" value="fiction" <%=book.isFiction ? 'checked'
+                            : '' %> required>
+                        Fiction
+                    </label>
+
+
+                    <label for="non-fiction">
+                        <input type="radio" id="non-fiction" name="isFiction" value="non-fiction" <%=!book.isFiction
+                            ? 'checked' : '' %>>
+                        Non-fiction
+                    </label>
                 </fieldset>
 
                 <fieldset>
                     <legend>Have you read this book?</legend>
-                    <input type="radio" id="read" name="isRead" value="read" <%=book.isRead ? 'checked' : '' %>
-                    required>
-                    <label for="read">Read</label><br />
 
-                    <input type="radio" id="no-read" name="isRead" value="not-read" <%=!book.isRead ? 'checked' : '' %>>
-                    <label for="no-read">Not Read</label><br />
+                    <label for="read">
+                        <input type="radio" id="read" name="isRead" value="read" <%=book.isRead ? 'checked' : '' %>
+                        required>
+                        Read
+                    </label>
+
+
+                    <label for="no-read">
+                        <input type="radio" id="no-read" name="isRead" value="not-read" <%=!book.isRead ? 'checked' : ''
+                            %>>
+                        Not Read
+                    </label>
                 </fieldset>
-                <button type="submit">Update</button>
+                <button class="btn" type="submit">Update</button>
             </form>
     </main>
 

@@ -4,55 +4,61 @@
     <title>
         <%= title %>
     </title>
+    <link rel="stylesheet" href="/styles.css">
     <script>
-        document.addEventListener("click", async (e) => {
-            if (!e.target.classList.contains("delete-btn")) return;
+        document.querySelectorAll(".btn.del").forEach(btn => {
+            btn.addEventListener("click", async () => {
+                const book = JSON.parse(btn.dataset.book);
+                const password = prompt("Enter password to delete");
 
-            if (prompt("Enter the password to delete") !== "password") return;
+                const res = await fetch(`/books/${book.id}`, {
+                    method: "DELETE",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password, book })
+                });
 
-            const bookId = e.target.dataset.bookId;
-
-            const res = await fetch(`/books/${bookId}`, { method: "DELETE" });
-
-            if (res.ok) {
-                e.target.closest(".book-item").remove();
-            }
+                if (res.ok) {
+                    btn.closest(".book-container").remove();
+                } else {
+                    alert("Failed to delete or wrong password");
+                }
+            });
         });
+
 
     </script>
 </head>
 
 <body>
     <main class="content">
-        <h1>
-            <%= title %>
-        </h1>
         <%- include('./partials/navbar') %>
 
             <div class="books">
                 <% books.forEach(book=> { %>
-
                     <div class="book-container">
                         <div class="book-header">
-                            <p class="book-name">
-                                <%= book.title%>
+                            <p class="book-title">
+                                <%= book.title %>
                             </p>
                             <p class="book-author">
                                 <%= book.author %>
                             </p>
                         </div>
                         <div class="book-details">
-                            <p> Is fiction: <%= book.is_fiction %>
+                            <p>Fiction: <%= book.is_fiction ? 'True' : 'False' %>
                             </p>
-                            <p> Is read: <%= book.is_read %>
+                            <p>Read: <%= book.is_read ? 'True' : 'False' %>
                             </p>
                         </div>
-
+                        <div class="btn-group">
+                            <a href="/books/<%= book.id %>" class="btn-edit">
+                                <button class="btn edit">Edit</button>
+                            </a>
+                            <button class="btn del" data-book='<%= JSON.stringify(book) %>'>Delete</button>
+                        </div>
                     </div>
-
-
-
                     <% }); %>
+
             </div>
     </main>
 </body>
