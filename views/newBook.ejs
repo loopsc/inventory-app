@@ -36,9 +36,11 @@
                 <div class="inputGroup">
                     <label for="genres">Generes: </label>
                     <select style="width: 100%;" class="js-example-basic-multiple" name="genres" id="genres" multiple>
-                        <option value="fantasy">Fantasy</option>
-                        <option value="scifi">Sci-Fi</option>
-                        <option value="mystery">Mystery</option>
+                        <% genres.forEach((genre)=> { %>
+                            <option value="<%= genre %>">
+                                <%= genre %>
+                            </option>
+                            <% }) %>
                     </select>
                 </div>
                 <fieldset>

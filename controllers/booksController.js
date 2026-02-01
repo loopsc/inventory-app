@@ -31,8 +31,10 @@ const getBookById = async (req, res, next) => {
 // Render the page for creating a new book
 const getNewBook = async (req, res, next) => {
     try {
+        const genres = await db.fetchGenres();
         res.render("newBook", {
             title: "New Book",
+            genres: genres,
         });
     } catch (err) {
         next(err);
@@ -41,13 +43,14 @@ const getNewBook = async (req, res, next) => {
 
 const postNewBook = async (req, res, next) => {
     try {
-        console.log("Form data:", req.body);
+        await db.insertBook(req.body);
         res.redirect("/");
     } catch (err) {
         next(err);
     }
 };
 
+// Render the page for updating a book
 const getUpdateBook = async (req, res, next) => {
     try {
         // Query the book from the id in req.params
@@ -66,6 +69,7 @@ const getUpdateBook = async (req, res, next) => {
     }
 };
 
+// Function when book is updated
 const postUpdateBook = async (req, res, next) => {
     try {
         console.log("Update book with the following: ", req.body);
