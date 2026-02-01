@@ -1,6 +1,6 @@
 const db = require("../db/queries");
 
-// Add queries for genre filtering?
+// TODO: Add queries for genre filtering?
 const getAllBooks = async (req, res, next) => {
     const books = await db.fetchAllBooks();
     try {
@@ -28,6 +28,7 @@ const getBookById = async (req, res, next) => {
     }
 };
 
+// Render the page for creating a new book
 const getNewBook = async (req, res, next) => {
     try {
         res.render("newBook", {
@@ -79,9 +80,11 @@ const deleteBook = async (req, res, next) => {
         if (req.body.password !== process.env.USER_PASSWORD) {
             return res.sendStatus(403);
         }
-        await db.deleteBook(req.body.book);
+        console.log(req.body.book.id);
+        await db.deleteBook(req.body.book.id);
         res.sendStatus(204);
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };

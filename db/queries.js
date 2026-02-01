@@ -9,7 +9,6 @@ const fetchAllBooks = async () => {
             JOIN genres g ON bg.genre_id = g.id
             GROUP BY b.id, a.name;`,
     );
-    console.log(rows);
     return rows;
 };
 

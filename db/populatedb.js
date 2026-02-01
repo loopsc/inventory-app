@@ -1,6 +1,8 @@
 require("dotenv").config();
 const { Client } = require("pg");
 
+// Run this code once to create tables
+
 const SQL = `
 CREATE TABLE IF NOT EXISTS authors (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -56,6 +58,9 @@ VALUES
     (2, 4),
     (3, 3);
 `;
+
+// Connects to database, runs a query to initialise tables then close client connection.
+// To be used once just for initially creating tables
 
 async function main() {
     console.log("populating db");
