@@ -48,7 +48,13 @@
                         <option value="philosophy" <%=book.genres.includes('philosophy') ? 'selected' : '' %>>Philosophy
                         </option>
                         <option value="crime" <%=book.genres.includes('crime') ? 'selected' : '' %>>Crime</option>
+                        <% genres.forEach((genre)=> { %>
+                            <option value="<%= genre %>" <%= book.genres.includes(genre) ? 'selected' : ''  %>>
+                                <%= genre %>
+                            </option>
+                            <% }) %>
                     </select>
+                    
                 </div>
                 <fieldset>
                     <legend>Fiction or Non-fiction?</legend>

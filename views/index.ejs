@@ -46,13 +46,19 @@
                             </p>
                         </div>
                         <div class="book-details">
-                            <p>Fiction: <%= book.is_fiction ? 'True' : 'False' %>
-                            </p>
-                            <p>Read: <%= book.is_read ? 'True' : 'False' %>
-                            </p>
+                            <% const genresArr=Array.isArray(book.genres) ? book.genres : [book.genres] %>
+                                <% genresArr.forEach((genre)=> { %>
+                                    <p>
+                                        <%= genre %>
+                                    </p>
+                                    <% }) %>
+                                        <p>Fiction: <%= book.is_fiction ? 'True' : 'False' %>
+                                        </p>
+                                        <p>Read: <%= book.is_read ? 'True' : 'False' %>
+                                        </p>
                         </div>
                         <div class="btn-group">
-                            <a href="/books/<%= book.id %>" class="btn-edit">
+                            <a href="/update/<%= book.id %>" class="btn-edit">
                                 <button class="btn edit">Edit</button>
                             </a>
                             <button class="btn del" data-book='<%= JSON.stringify(book) %>'>Delete</button>
