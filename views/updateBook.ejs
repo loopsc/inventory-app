@@ -28,7 +28,7 @@
 
             <h3>Updating: <%= title %>
             </h3>
-            <form action="/update/:bookId" method="POST" class="form">
+            <form action="/update/<%= book.id %>" method="POST" class="form">
                 <div class="inputGroup">
                     <label for="title">Title: </label>
                     <input type="text" name="title" id="title" value="<%= book.title %>" required>
@@ -49,12 +49,12 @@
                         </option>
                         <option value="crime" <%=book.genres.includes('crime') ? 'selected' : '' %>>Crime</option>
                         <% genres.forEach((genre)=> { %>
-                            <option value="<%= genre %>" <%= book.genres.includes(genre) ? 'selected' : ''  %>>
+                            <option value="<%= genre %>" <%=book.genres.includes(genre) ? 'selected' : '' %>>
                                 <%= genre %>
                             </option>
                             <% }) %>
                     </select>
-                    
+
                 </div>
                 <fieldset>
                     <legend>Fiction or Non-fiction?</legend>

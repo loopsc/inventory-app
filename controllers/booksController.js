@@ -76,8 +76,11 @@ const getUpdateBook = async (req, res, next) => {
 // Function when book is updated
 const postUpdateBook = async (req, res, next) => {
     try {
+        console.log("Book ID: ", req.params.bookId)
+        await db.updateBook(req.body, Number(req.params.bookId));
         res.redirect("/");
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };
